@@ -1,0 +1,26 @@
+#!/bin/csh -fx
+if("$1" == "") then
+	echo "Filename [device]"
+	exit 0
+endif
+setenv FN "$1"
+shift
+if("$1" != "") then
+	set d=($1)
+else
+	set d=(/dev/cu.usbmodem* /dev/ttyACM*)
+endif
+
+if($#d == 0) then
+	echo No device
+	exit 0
+endif
+
+#git pull
+#
+make idfmon
+
+again:
+./idfmon $d[1]
+esptool.py -p $d[1] -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x0 "$FN"
+goto again
