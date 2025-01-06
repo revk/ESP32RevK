@@ -4,7 +4,7 @@ The function `const char *revk_season (time_t now)` is provided to return a stri
 
 The response is a set of codes that apply, but some applications just use the first letter. When multiple letters the first letter changes one the hour.
 
-Applications show allow for new codes being added in the future, and for some changes to time ranges.|
+Applications should allow for new codes being added in the future, and for some changes to time ranges.
 
 ## Codes
 
