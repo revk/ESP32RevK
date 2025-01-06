@@ -225,4 +225,4 @@ The status LED can be set by `revk_blink (uint8_t on, uint8_t off, const char *c
 
 Note that if `led_strip` is included in managed components then the library can work a WS2812B LED instead of discrete RGB LEDs. This will normally create a single LED *strip*. However `revk_strip` can be initialised before starting the library to allow more LEDs, and the library will set the first LED for status and update all LEDs 10 times a second. This allows the application to set other LEDs with `led_strip_set_pixel (revk_strip, i, r, g, b)` and rely on it being refreshed automatically by the library. Where the `revk_strip` is preset, this process applies ever if a fixed LED or fixed RGB LED is also defined in `blink`.
 
-See (Default LEDs)[LED.md] for standard/default LED sequences.
+See [Default LEDs](LED.md) for standard/default LED sequences.
