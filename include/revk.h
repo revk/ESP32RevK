@@ -230,8 +230,8 @@ jo_t revk_web_query (httpd_req_t * req);        // Get post/get form in JSON for
 esp_err_t revk_web_settings_add (httpd_handle_t webserver);     // Add URLs
 esp_err_t revk_web_settings_remove (httpd_handle_t webserver);  // Remove URLs
 esp_err_t revk_web_settings (httpd_req_t * req);        // Call for web config for SSID/password/mqtt (GET/POST) - needs 4 URLS
-void revk_web_setting_info (httpd_req_t * req, const char *fmt,...); // Text info in settings (th)
-void revk_web_setting_note (httpd_req_t * req, const char *fmt,...); // Text info in settings
+void revk_web_setting_title (httpd_req_t * req, const char *fmt,...); // Text info in settings (th)
+void revk_web_setting_info (httpd_req_t * req, const char *fmt,...); // Text info in settings
 void revk_web_setting (httpd_req_t * req, const char *tag, const char *field);
 esp_err_t revk_web_status (httpd_req_t * req);  // Call for web config for SSID/password/mqtt (WS)
 esp_err_t revk_web_wifilist (httpd_req_t * req);        // WS for list of SSIDs

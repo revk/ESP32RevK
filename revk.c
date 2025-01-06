@@ -3134,7 +3134,7 @@ revk_web_setting_title (httpd_req_t * req, const char *fmt, ...)
 
 #ifndef  CONFIG_REVK_OLD_SETTINGS
 void
-revk_web_setting_note (httpd_req_t * req, const char *fmt, ...)
+revk_web_setting_info (httpd_req_t * req, const char *fmt, ...)
 {
    char *info = NULL;
    va_list ap;
