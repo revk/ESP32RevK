@@ -24,7 +24,7 @@ ha_config_opts (const char *config, ha_config_t h)
          jo_string (j, tag, path);
    }
    // ID
-   jo_stringf (j, "unique_id", "%s-%s", hostname, h.id);
+   jo_stringf (j, "unique_id", "%s-%s", revk_id, h.id);
    jo_object (j, "dev");
    jo_array (j, "ids");
    jo_string (j, NULL, revk_id);
@@ -34,6 +34,8 @@ ha_config_opts (const char *config, ha_config_t h)
    jo_string (j, "sw", revk_version);
    jo_string (j, "mf", "www.me.uk");
    jo_close (j);
+   if (h.icon)
+      jo_string (j, "icon", h.icon);
    if (h.type)
       jo_string (j, "dev_cla", h.type);
    if (h.name)
