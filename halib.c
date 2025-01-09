@@ -24,7 +24,6 @@ ha_config_opts (const char *config, ha_config_t h)
          jo_string (j, tag, path);
    }
    jo_stringf (j, "unique_id", "%s-%s", revk_id, h.id);
-   jo_string (j, "schema", "json");
    jo_object (j, "dev");
    jo_array (j, "ids");
    jo_string (j, NULL, revk_id);
@@ -40,19 +39,21 @@ ha_config_opts (const char *config, ha_config_t h)
       jo_string (j, "dev_cla", h.type);
    if (h.name)
       jo_string (j, "name", h.name);
+   if (h.stat)
+   {
+      addpath ("stat_t", hastatus, h.stat);
+      jo_stringf (j, "val_tpl", "{{value_json.%s}}", h.field ? : h.id);
+   }
+   if (h.cmd)
+      addpath ("cmd_t", hacmd, h.cmd);
    if (!strcmp (config, "sensor"))
    {                            // Sensor
-      addpath ("stat_t", hastatus, h.stat);
       if (h.unit)
          jo_string (j, "unit_of_meas", h.unit);
-      jo_stringf (j, "val_tpl", "{{value_json.%s}}", h.field ? : h.id);
-   } else if (!strcmp (config, "switch") || !strcmp (config, "light"))
+   } else
+      (!strcmp (config, "light"))
    {
-      if (h.cmd)
-         addpath ("cmd_t", hacmd, h.cmd);
-      if (h.stat)
-         addpath ("stat_t", hastatus, h.stat);
-      jo_stringf (j, "val_tpl", "{{value_json.%s}}", h.field ? : h.id);
+      jo_string (j, "schema", "json");
    }
    // Availability
    jo_string (j, "avty_t", hastatus);
