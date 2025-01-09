@@ -9,7 +9,7 @@ ha_config_opts (const char *config, ha_config_t h)
    if (!h.id)
       return "No name";
    char *topic;
-   if (asprintf (&topic, "%s/%s/%s-%s/config", topicha, config, hostname, h.id) < 0)
+   if (asprintf (&topic, "%s/%s/%s-%s/config", topicha, config, revk_id, h.id) < 0)
       return "malloc fail";
    char *hastatus = revk_topic (topicstate, NULL, NULL);
    char *hacmd = revk_topic (topiccommand, NULL, NULL);
