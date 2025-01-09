@@ -23,8 +23,8 @@ ha_config_opts (const char *config, ha_config_t h)
       else
          jo_string (j, tag, path);
    }
-   // ID
    jo_stringf (j, "unique_id", "%s-%s", revk_id, h.id);
+   jo_string (j, "schema", "json");
    jo_object (j, "dev");
    jo_array (j, "ids");
    jo_string (j, NULL, revk_id);
