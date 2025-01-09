@@ -50,8 +50,7 @@ ha_config_opts (const char *config, ha_config_t h)
    {                            // Sensor
       if (h.unit)
          jo_string (j, "unit_of_meas", h.unit);
-   } else
-      (!strcmp (config, "light"))
+   } else if (!strcmp (config, "light"))
    {
       jo_string (j, "schema", "json");
    }
