@@ -120,8 +120,8 @@ main (int argc, const char *argv[])
    int debug = 0;
    int nocomment = 0;
    int noplace = 0;
-   const char *cfile = "settings.c";
-   const char *hfile = "settings.h";
+   const char *cfile = "main/settings.c";
+   const char *hfile = "main/settings.h";
    const char *dummysecret = "✶✶✶✶✶✶✶✶";
    const char *extension = "def";
    int maxname = 15;
