@@ -24,7 +24,7 @@ s	topic.error	error			.revk=1 .old="prefixerror"			// MQTT Topic for error
 bit	prefix.app	CONFIG_REVK_PREFIXAPP	.revk=1			// MQTT use appname/ in front of hostname in topic
 bit	prefix.host	CONFIG_REVK_PREFIXHOST	.revk=1			// MQTT use (appname/)hostname/topic instead of topic/(appname/)hostname
 #ifdef	CONFIG_REVK_BLINK_DEF
-gpio	blink		CONFIG_REVK_BLINK	.revk=1	.array=3	// LED array
+gpio	blink		CONFIG_REVK_BLINK	.revk=1	.array=3	// R, G, B LED array (set all the same for WS2812 LED)
 #endif
 
 
