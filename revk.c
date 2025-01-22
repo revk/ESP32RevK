@@ -3636,7 +3636,7 @@ revk_web_settings (httpd_req_t * req)
                         for (g = revk_settings; g->len; g++)
                            if (!g->hide && g->group == s->group && s->array != g->array)
                               break;
-                     if (g && !s->len)
+                     if (g && !g->len)
                         for (int i = 0; i < s->array; i++)
                         {
                            for (g = revk_settings; g->len; g++)
