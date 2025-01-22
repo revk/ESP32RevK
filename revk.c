@@ -3641,7 +3641,7 @@ revk_web_settings (httpd_req_t * req)
                         {
                            for (g = revk_settings; g->len; g++)
                               if (!g->hide && g->group == s->group)
-                                 adda (s, i);
+                                 adda (g, i);
                      } else
                         for (g = revk_settings; g->len; g++)
                            if (!g->hide && g->group == s->group)
