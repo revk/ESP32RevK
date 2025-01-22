@@ -3595,6 +3595,12 @@ revk_web_settings (httpd_req_t * req)
             for (revk_settings_t * s = revk_settings; s->len; s++)
                if (!s->hide && s->revk == (page == -3 ? 1 : 0))
                {
+                  void adda (revk_settings_t * s.int i)
+                  {
+                     char tag[32];
+                     snprintf (tag, sizeof (tag), "%s%d", s->name, i + 1);
+                     revk_web_setting (req, NULL, tag);
+                  }
                   void add (revk_settings_t * s)
                   {
                      if (s->array)
@@ -3606,11 +3612,7 @@ revk_web_settings (httpd_req_t * req)
                            line = 1;
                         }
                         for (int i = 0; i < s->array; i++)
-                        {       // Array
-                           char tag[32];
-                           snprintf (tag, sizeof (tag), "%s%d", s->name, i + 1);
-                           revk_web_setting (req, NULL, tag);
-                        }
+                           adda (s, i);
                      } else
                      {
                         if (!s->group)
@@ -3629,9 +3631,20 @@ revk_web_settings (httpd_req_t * req)
                      if (line >= 0)
                         hr ();
                      found[s->group / 8] |= (1 << (s->group & 7));
-                     for (revk_settings_t * g = revk_settings; g->len; g++)
-                        if (!g->hide && g->group == s->group)
-                           add (g);
+                     revk_settings *g = NULL;
+                     if (s->array)
+                        if (!g->hide && g->group == s->group && s->array != g->array)
+                           break;
+                     if (g && !s->len)
+                        for (int i = 0; i < s->array; i++)
+                        {
+                           for (revk_settings_t * g = revk_settings; g->len; g++)
+                              if (!g->hide && g->group == s->group)
+                                 adda (s, i);
+                     } else
+                        for (revk_settings_t * g = revk_settings; g->len; g++)
+                           if (!g->hide && g->group == s->group)
+                              add (g);
                      line = 1;
                   } else
                      add (s);
