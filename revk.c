@@ -2019,8 +2019,8 @@ task (void *pvParameters)
 #else
             ESP_LOGI (TAG, "Up %lu%s", (unsigned long) now, mq);
 #endif
-            if (!b.disablewifi && wifiuptime && now > wifiuptime && !restart_time)
-               revk_disable_wifi ();
+            if (!b.disablewifi && wifiuptime && now > wifiuptime && now<wifiuptime+10&&!restart_time)
+               revk_disable_wifi (); // Catch wifi uptime, but allow wifi to be turned back on later if needed
 #endif
          }
 #ifdef	CONFIG_REVK_MQTT
