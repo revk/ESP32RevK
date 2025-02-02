@@ -265,6 +265,9 @@ static struct
    uint8_t disablewifi:1;
    uint8_t disableap:1;
    uint8_t disablesettings:1;
+#ifdef  CONFIG_IDF_TARGET_ESP32S3
+   uint8_t disableusb:1;
+#endif
 #ifdef	CONFIG_REVK_MESH
    uint8_t mesh_root_known:1;
 #endif
@@ -2019,8 +2022,16 @@ task (void *pvParameters)
 #else
             ESP_LOGI (TAG, "Up %lu%s", (unsigned long) now, mq);
 #endif
-            if (!b.disablewifi && wifiuptime && now > wifiuptime && now<wifiuptime+10&&!restart_time)
-               revk_disable_wifi (); // Catch wifi uptime, but allow wifi to be turned back on later if needed
+            if (!b.disablewifi && wifiuptime && now > wifiuptime && now < wifiuptime + 10 && !restart_time)
+               revk_disable_wifi ();    // Catch wifi uptime, but allow wifi to be turned back on later if needed
+#endif
+#ifdef  CONFIG_IDF_TARGET_ESP32S3
+            if (!b.disableusb && usbuptime && now > usbuptime && now < usbuptime + 10 && !restart_time)
+            { // Turn off USB
+               b.disableusb = 1;
+	       gpio_reset_pin(19);
+	       gpio_reset_pin(20);
+            }
 #endif
          }
 #ifdef	CONFIG_REVK_MQTT

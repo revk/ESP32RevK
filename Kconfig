@@ -217,6 +217,13 @@ menu "RevK"
         help
 		Set WiFi to maximum power save mode
 
+	config REVK_USBUPTIME
+	int "Turn off USBi after this time"
+	default 0
+	depends on IDF_TARGET_ESP32S3
+	help
+		Number of seconds before USB auto turns off
+
 	config REVK_APGPIO
         string "AP mode GPIO"
         default ""

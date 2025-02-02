@@ -29,6 +29,9 @@ bit	prefix.host	CONFIG_REVK_PREFIXHOST	.revk=1			// MQTT use (appname/)hostname/
 #ifdef	CONFIG_REVK_BLINK_DEF
 gpio	blink		CONFIG_REVK_BLINK	.revk=1	.array=3	// R, G, B LED array (set all the same for WS2812 LED)
 #endif
+#ifdef  CONFIG_IDF_TARGET_ESP32S3
+u16	usbuptime	CONFIG_REVK_USBUPTIME	.revk=1			// USB  turns off after this many seconds
+#endif
 
 bit	dark					.revk=1 .live=1			// Default LED off
 #ifdef  CONFIG_IDF_TARGET_ESP32S3
