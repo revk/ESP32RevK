@@ -3061,8 +3061,8 @@ revk_web_head (httpd_req_t * req, const char *title)
 {                               // Generic HTML heading
    char *qs = NULL;
    httpd_resp_set_type (req, "text/html;charset=utf-8");
-   revk_web_send (req, "<!DOCTYPE html>" //
-		  "<meta name='viewport' content='width=device-width, initial-scale=.75'>" //
+   revk_web_send (req, "<!DOCTYPE html>"        //
+                  "<meta name='viewport' content='width=device-width, initial-scale=.75'>"      //
                   "<title>%s</title>"   //
                   "<style>"     //
                   "body{font-family:sans-serif;background:#8cf;background-image:linear-gradient(to right,#8cf,#48f);}"  //
@@ -3412,7 +3412,9 @@ revk_web_settings (httpd_req_t * req)
          jo_strncpy (j, t, sizeof (t));
          page = atoi (t);
       }
-      if (jo_find (j, "_upgrade"))
+      if (jo_find (j, "_reboot"))
+         revk_restart (3, "Reboot");
+      else if (jo_find (j, "_upgrade"))
       {
          const char *e = revk_settings_store (j, &location, REVK_SETTINGS_JSON_STRING); // Saved settings
          if (e && !*e && app_callback)
@@ -3686,7 +3688,7 @@ revk_web_settings (httpd_req_t * req)
       if (shutdown || page == -1)
          hr ();
    }
-   revk_web_send (req, "</table></form>");
+   revk_web_send (req, "</table><input name=_reboot type=submit value='Reboot'></form>");
 #ifdef CONFIG_HTTPD_WS_SUPPORT
    // A tad clunky, could be improved.
    revk_web_send (req, "<script>"       //
