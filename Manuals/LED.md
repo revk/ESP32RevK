@@ -11,9 +11,9 @@ These apply even if the application has set another LED sequence or `dark` is se
 |Colours|Meaning|
 |-------|-------|
 |Green|First 2 seconds from power up|
-|Yellow|First press of factory reset|
+|Yellow|First press of factory reset (if you wait 3 seconds with no more presses then it will reboot)|
 |Orange|Second press of factory reset|
-|Red|Third press of factory reset|
+|Red|Third press of factory reset (factory reset and reboot is now done)|
 
 ## Normal
 

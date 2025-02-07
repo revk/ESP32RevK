@@ -151,7 +151,7 @@ Sending a `setting` message with no suffix and no payload causes a `setting` res
 |`topicevent`|The topic for `event`|
 |`topicinfo`|The topic for `info`|
 |`topicerror`|The topic for `error`|
-|`factorygpio`|GPIO for factory reset, press 3 times without 3 second delay.|
+|`factorygpio`|GPIO for factory reset, press 3 times without 3 second delay. Note one press just reboots.|
 
 #### Status LED
 
