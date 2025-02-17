@@ -3592,36 +3592,40 @@ revk_web_settings (httpd_req_t * req)
                revk_web_setting_info (req, "Set these to connect to your network/internet");
             revk_web_setting_s (req, "SSID", "wifissid", wifissid, "WiFi name", NULL);
             revk_web_setting_s (req, "Passphrase", "wifipass", wifipass, "WiFi pass", NULL);
-            revk_web_setting_s (req, "Hostname", "hostname", hostname, NULL,
+            if (!revk_link_down ())
+               revk_web_setting_s (req, "Hostname", "hostname", hostname, NULL,
 #ifdef  CONFIG_MDNS_MAX_INTERFACES
-                                ".local"
+                                   ".local"
 #else
-                                ""
+                                   ""
 #endif
-               );
+                  );
             if (!shutdown)
                revk_web_send (req, "<tr id=_found hidden><td>Found:</td><td colspan=2 id=_list></td></tr>");
             hr ();
          }
-         revk_web_setting_title (req, "MQTT settings");
-         if (!*mqtthost[0])
-            revk_web_setting_info (req, "Only needed if you have an MQTT server");
-         revk_web_setting_s (req, "MQTT host", "mqtthost", mqtthost[0], "hostname", NULL);
-         revk_web_setting_s (req, "MQTT user", "mqttuser", mqttuser[0], "username", NULL);
-         revk_web_setting_s (req, "MQTT pass", "mqttpass", mqttpass[0], "password", NULL);
+         if (!revk_link_down ())
+         {
+            revk_web_setting_title (req, "MQTT settings");
+            if (!*mqtthost[0])
+               revk_web_setting_info (req, "Only needed if you have an MQTT server");
+            revk_web_setting_s (req, "MQTT host", "mqtthost", mqtthost[0], "hostname", NULL);
+            revk_web_setting_s (req, "MQTT user", "mqttuser", mqttuser[0], "username", NULL);
+            revk_web_setting_s (req, "MQTT pass", "mqttpass", mqttpass[0], "password", NULL);
 #ifdef  CONFIG_REVK_SETTINGS_PASSWORD
-         hr ();
-         revk_web_setting_title (req, "Password restrict all settings");
-         if (!*password)
-            revk_web_setting_info (req, "Be careful setting this as you will need it to make any more changes.");
-         revk_web_setting_s (req, "Password", "password", password, NULL,
-                             "Settings password (not sent securely, so use with care on local network you control)");
+            hr ();
+            revk_web_setting_title (req, "Password restrict all settings");
+            if (!*password)
+               revk_web_setting_info (req, "Be careful setting this as you will need it to make any more changes.");
+            revk_web_setting_s (req, "Password", "password", password, NULL,
+                                "Settings password (not sent securely, so use with care on local network you control)");
 #endif
 #ifdef	CONFIG_REVK_WEB_TZ
-         hr ();
-         revk_web_setting_s (req, "Timezone", "tz", tz, "TZ code",
-                             "See <a href ='https://gist.github.com/alwynallan/24d96091655391107939'>list</a>");
+            hr ();
+            revk_web_setting_s (req, "Timezone", "tz", tz, "TZ code",
+                                "See <a href ='https://gist.github.com/alwynallan/24d96091655391107939'>list</a>");
 #endif
+         }
          break;
 #ifdef	REVK_SETTINGS_HAS_COMMENT
 #ifndef	CONFIG_REVK_OLD_SETTINGS
@@ -3705,7 +3709,7 @@ revk_web_settings (httpd_req_t * req)
          hr ();
    }
    revk_web_send (req, "</table>");
-   if (!shutdown && page == -1 && (!*password || loggedin))
+   if (!revk_link_down () && !shutdown && page == -1 && (!*password || loggedin))
       revk_web_send (req, "<input name=_reboot type=submit value='Reboot'>");
    revk_web_send (req, "</form>");
 #ifdef CONFIG_HTTPD_WS_SUPPORT
@@ -3767,7 +3771,7 @@ revk_web_settings (httpd_req_t * req)
    }
    httpd_resp_sendstr_chunk (req, "</script>");
 #endif
-   if (shutdown || page == -1)
+   if (!revk_linke_down () && (shutdown || page == -1))
    {                            // IP info
       revk_web_send (req, "<table>");
       int32_t up = uptime ();
