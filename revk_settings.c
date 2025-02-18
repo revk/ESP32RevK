@@ -249,7 +249,7 @@ main (int argc, const char *argv[])
                   if (is_space (*p))
                      p++;
                   else if (*p == '/' && p[1] == '/')
-                  {
+                  {             // Comment at end
                      *p++ = 0;
                      p++;
                      while (*p && is_space (*p))
@@ -274,6 +274,7 @@ main (int argc, const char *argv[])
                         fputc ('1', att);
                      } else
                      {
+                        fputc (*p++, att);
                         if (*p == '"' || *p == '\'')
                         {
                            char c = *p++;
@@ -296,7 +297,7 @@ main (int argc, const char *argv[])
                      if (*p == ',')
                         p++;
                   } else
-                     errx (1,"Settings issue: [%s]", p);
+                     errx (1, "Settings issue: [%s]", p);
                }
             }
             if (att)
