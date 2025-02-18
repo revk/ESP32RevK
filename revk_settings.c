@@ -282,8 +282,8 @@ main (int argc, const char *argv[])
                            while (*p && *p != c)
                            {
                               if (*p == '\\' && p[1])
-                                 p++;
-                              p++;
+                                 fputc (*p++, att);
+                              fputc (*p++, att);
                            }
                            if (*p == c)
                               p++;
