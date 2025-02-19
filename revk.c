@@ -1895,6 +1895,7 @@ task (void *pvParameters)
    revk_blink_init ();
 #endif
    revk_gpio_input (factorygpio);
+   b.fatcorywas = revk_gpio_get (factorygpio);
    while (1)
    {                            /* Idle */
       if (!b.wdt_test && watchdogtime)
@@ -1932,14 +1933,17 @@ task (void *pvParameters)
                }
             }
             b.factorywas = press;
-            if (b.factorytick == 30)
+            if (!press)
             {
-               if (b.factorycount == 1)
-                  revk_restart (1, "Reset button");
-               b.factorycount = 0;      // Timeout
+               if (b.factorytick == 30)
+               {
+                  if (b.factorycount == 1)
+                     revk_restart (1, "Reset button");
+                  b.factorycount = 0;   // Timeout
+               }
+               if (b.factorytick < 31)
+                  b.factorytick++;
             }
-            if (b.factorytick < 31)
-               b.factorytick++;
          }
       }
       static uint32_t last = 0;
