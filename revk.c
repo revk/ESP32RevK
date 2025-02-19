@@ -1895,7 +1895,7 @@ task (void *pvParameters)
    revk_blink_init ();
 #endif
    revk_gpio_input (factorygpio);
-   b.fatcorywas = revk_gpio_get (factorygpio);
+   b.factorywas = revk_gpio_get (factorygpio);
    while (1)
    {                            /* Idle */
       if (!b.wdt_test && watchdogtime)
