@@ -1921,8 +1921,7 @@ task (void *pvParameters)
             uint8_t press = revk_gpio_get (factorygpio);
             if (press && !b.factorywas)
             {
-               if (b.factorycount < 3)
-                  b.factorycount++;
+               b.factorycount++;
                ESP_LOGE (TAG, "Pressed factory reset button %d", b.factorycount);
                b.factorytick = 0;
             }
@@ -1937,10 +1936,11 @@ task (void *pvParameters)
                   revk_settings_factory (TAG, app->project_name, 0);
                   revk_restart (3, "Factory reset");
                }
-               b.factorycount = 0;      // Timeout
             }
             if (b.factorytick < 31)
                b.factorytick++;
+            else
+               b.factorycount = 0;      // Timeout
          }
       }
       static uint32_t last = 0;
