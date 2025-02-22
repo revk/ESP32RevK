@@ -3169,7 +3169,7 @@ revk_web_setting_info (httpd_req_t * req, const char *fmt, ...)
    va_start (ap, fmt);
    vasprintf (&info, fmt, ap);
    va_end (ap);
-   revk_web_send (req, "<tr><td colspan=3>%s</th></tr>", info);
+   revk_web_send (req, "<tr><td colspan=3>%s</td></tr>", info);
    free (info);
 }
 #endif
