@@ -161,9 +161,12 @@ nvs_put (revk_settings_t * s, int index, void *ptr)
       }
       break;
 #endif
-#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON)
+#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON) || defined(REVK_SETTING_HAS_TEXT)
 #ifdef	REVK_SETTINGS_HAS_STRING
    case REVK_SETTINGS_STRING:
+#endif
+#ifdef	REVK_SETTINGS_HAS_TEXT
+   case REVK_SETTINGS_TEXT:
 #endif
 #ifdef	REVK_SETTINGS_HAS_JSON
    case REVK_SETTINGS_JSON:
@@ -311,9 +314,12 @@ nvs_get (revk_settings_t * s, const char *tag, int index)
          }
          break;
 #endif
-#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON)
+#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON) || defined(REVK_SETTINGS_HAS_TEXT)
 #ifdef  REVK_SETTINGS_HAS_STRING
       case REVK_SETTINGS_STRING:
+#endif
+#ifdef  REVK_SETTINGS_HAS_TEXT
+      case REVK_SETTINGS_TEXT:
 #endif
 #ifdef  REVK_SETTINGS_HAS_JSON
       case REVK_SETTINGS_JSON:
@@ -653,6 +659,10 @@ value_cmp (revk_settings_t * s, void *a, void *b)
       if (s->type == REVK_SETTINGS_STRING)
          return strcmp (*((char **) a), *((char **) b));
 #endif
+#ifdef	REVK_SETTINGS_HAS_TEXT
+      if (s->type == REVK_SETTINGS_TEXT)
+         return strcmp (*((char **) a), *((char **) b));
+#endif
 #ifdef	REVK_SETTINGS_HAS_JSON
       if (s->type == REVK_SETTINGS_JSON)
          return strcmp (*((char **) a), *((char **) b));
@@ -708,9 +718,12 @@ revk_settings_text (revk_settings_t * s, int index, int *lenp)
       }
       break;
 #endif
-#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON)
+#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON) || defined(REVK_SETTINGS_HAS_TEXT)
 #ifdef	REVK_SETTINGS_HAS_STRING
    case REVK_SETTINGS_STRING:
+#endif
+#ifdef	REVK_SETTINGS_HAS_TEXT
+   case REVK_SETTINGS_TEXT:
 #endif
 #ifdef	REVK_SETTINGS_HAS_JSON
    case REVK_SETTINGS_JSON:
@@ -868,7 +881,7 @@ load_value (revk_settings_t * s, const char *d, int index, void *ptr)
       }
       break;
 #endif
-#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON)
+#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON) || defined(REVK_SETTINGS_HAS_TEXT)
 #ifdef  REVK_SETTINGS_HAS_JSON
    case REVK_SETTINGS_JSON:
       if (e > d)
@@ -882,6 +895,9 @@ load_value (revk_settings_t * s, const char *d, int index, void *ptr)
 #endif
 #ifdef  REVK_SETTINGS_HAS_STRING
    case REVK_SETTINGS_STRING:
+#endif
+#ifdef  REVK_SETTINGS_HAS_TEXT
+   case REVK_SETTINGS_TEXT:
 #endif
       {
          if (!s->malloc)
@@ -1169,9 +1185,12 @@ revk_setting_dump (int level)
       case REVK_SETTINGS_BLOB:
          return ((revk_settings_blob_t *) (d))->len == 0;
 #endif
-#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON)
+#if	defined(REVK_SETTINGS_HAS_STRING) || defined(REVK_SETTINGS_HAS_JSON) || defined(REVK_SETTINGS_HAS_TEXT)
 #ifdef  REVK_SETTINGS_HAS_STRING
       case REVK_SETTINGS_STRING:
+#endif
+#ifdef  REVK_SETTINGS_HAS_TEXT
+      case REVK_SETTINGS_TEXT:
 #endif
 #ifdef  REVK_SETTINGS_HAS_JSON
       case REVK_SETTINGS_JSON:

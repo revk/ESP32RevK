@@ -3327,6 +3327,13 @@ revk_web_setting (httpd_req_t * req, const char *tag, const char *field)
                         "", comment);
    } else
 #endif
+#ifdef  REVK_SETTINGS_HAS_TEXT
+   if (s->type == REVK_SETTINGS_TEXT)
+      revk_web_send (req,
+                     "<td nowrap><textarea cols=40 rows=4 id=\"%s\" name=\"_%s\" onchange=\"this.name='%s';\" autocapitalize='off' autocomplete='off' spellcheck='false' size=40 autocorrect='off' placeholder=\"%s\">%s</textarea></td><td>%s</td></tr>",
+                     field, field, field, *place ? place : "TEXT", revk_web_safe (&qs, value), comment);
+   else
+#endif
 #ifdef  REVK_SETTINGS_HAS_JSON
    if (s->type == REVK_SETTINGS_JSON)
       revk_web_send (req,

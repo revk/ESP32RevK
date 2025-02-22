@@ -60,6 +60,7 @@ Note the basic syntax of the definition files are checked, and some invalid comb
 |`blob`|Binary data (up to 64K if space in NVS), see below|
 |`json`|A string `char*` internally, that is JSON in the settings|
 |`s`|String i.e. `char*`|
+|`text`|String i.e. `char*` but input as text area, i.e. assumed to allow mutiline|
 |`c`*N*|String allowing up to *N* characters, null terminated in a `char [N+1]` array|
 |`o`*N*|Fixed octet array `unit8_t [N]`, typically used with `.hex=1` or `.base32=1` or `.base64=1`, data has to be full size|
 |`u8`|`uint8_t`|
